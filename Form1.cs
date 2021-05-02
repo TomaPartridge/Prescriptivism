@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,19 +17,19 @@ namespace labathree_pr
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Trapezoid t1 = new Trapezoid(3, 5, 2, 2) { Area = 15, SideSum = 40 };
-            Trapezoid t2 = new Trapezoid() { SideSum = 10, Area = 15 };
-            Trapezoid t3 = new Trapezoid(1, 2, 3,3.5);
+        Trapezoid t1 = new Trapezoid(3, 5, 2, 2) { Area = 15, SideSum = 40 };
+        Trapezoid t2 = new Trapezoid() { SideSum = 10, Area = 15 };
+        Trapezoid t3 = new Trapezoid(1, 2, 3, 3.5);
+        Parallelogram p1 = new Parallelogram(4, 4, 30);
+        Parallelogram p2 = new Parallelogram() { Area = 10, SideSum = 13.1 };
+        Parallelogram p3 = new Parallelogram(4, 5, 30);
+        Hexagon h1 = new Hexagon(5);
+        Hexagon h2 = new Hexagon() { Area = 30 };
+        Hexagon h3 = new Hexagon() { Small_r = 1 };
+        private void button1_Click2(object sender, EventArgs e)
+        {            
             t3.DefArea();
-            t3.DefPerimeter();
-            Parallelogram p1 = new Parallelogram(4, 4, 30);
-            Parallelogram p2 = new Parallelogram() { Area=10, SideSum=13.1};
-            Parallelogram p3 = new Parallelogram(4, 5, 30);
-            Hexagon h1 = new Hexagon(5);
-            Hexagon h2 = new Hexagon() { Area = 30 };
-            Hexagon h3 = new Hexagon() { Small_r = 1 };
+            t3.DefPerimeter();            
 
             FlatFigure[] trap = new FlatFigure[] { t1, t2, t3 };
             FlatFigure[] par = new FlatFigure[] { p1, p2, p3 };
@@ -37,7 +37,7 @@ namespace labathree_pr
 
             listBox1.Items.Add("_________________________");
             listBox1.Items.Add("Трапеции");
-            foreach(FlatFigure el in trap)
+            foreach (FlatFigure el in trap)
             {
                 listBox1.Items.Add(el.Inf());
             }
@@ -53,39 +53,30 @@ namespace labathree_pr
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Trapezoid t1 = new Trapezoid(3, 6, 2, 2) { Area = 15, SideSum = 40 };
-            Trapezoid t2 = (Trapezoid)t1.Clone();
-            Parallelogram p1 = new Parallelogram(3, 6, 2) { Area = 15, SideSum = 40 };
-            Parallelogram p2 = (Parallelogram)p1.Clone();
-            Hexagon h1 = new Hexagon(7);
+        private void button2_Click2(object sender, EventArgs e)
+        {            
+            Trapezoid t2 = (Trapezoid)t1.Clone();            
+            Parallelogram p2 = (Parallelogram)p1.Clone();            
             Hexagon cru = (Hexagon)h1.Clone();
             cru.Big_R = 5;
             t2.DefArea();
             listBox1.Items.Add("__________");
-            listBox1.Items.Add("Оригинал | " + t1.Inf());
-            listBox1.Items.Add("Клон         | " + t2.Inf());
-            listBox1.Items.Add("Оригинал | " + p1.Inf());
-            listBox1.Items.Add("Клон         | " + p2.Inf());
-            listBox1.Items.Add("Оригинал | " + h1.Inf());
-            listBox1.Items.Add("Клон         | " + cru.Inf());
+            CloneWriter(t1, t2);
+            CloneWriter(p1, p2);
+            CloneWriter(h1, cru);
             listBox1.Items.Add("__________");
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        void CloneWriter(FlatFigure figure1, FlatFigure figure2)
+        {
+            listBox1.Items.Add("Оригинал | " + figure1.Inf());
+            listBox1.Items.Add("Клон         | " + figure2.Inf());
+        }
+
+        private void button3_Click2(object sender, EventArgs e)
         {
             listBox1.Items.Add("------------------------------");
-
-            Trapezoid t1 = new Trapezoid(3, 5, 2, 2) { Area = 15, SideSum = 40 };
-            Trapezoid t2 = new Trapezoid() { SideSum = 10, Area = 15 };
-            Trapezoid t3 = new Trapezoid(1, 2, 3, 3.5);
-            Parallelogram p1 = new Parallelogram(4, 4, 30);
-            Parallelogram p2 = new Parallelogram() { Area = 10, SideSum = 13.1 };
-            Parallelogram p3 = new Parallelogram(4, 5, 30);
-            Hexagon h1 = new Hexagon(5);
-            Hexagon h2 = new Hexagon() { Area = 30 };
-            Hexagon h3 = new Hexagon() { Small_r = 1 };
+                      
 
             Trapezoid[] trap = new Trapezoid[] { t1, t2, t3 };//я запуталась, справа и слева одно и то же
             Parallelogram[] par = new Parallelogram[] { p1, p2, p3 };
@@ -105,7 +96,7 @@ namespace labathree_pr
                 }
                 catch
                 {
-                    str = $"название: {item.Name}, количество углов: {item.Angle}, "+ (item.Isos ? $", трапеция равнобокая, а={item.a}; b={item.b}; c=d={item.c}" : $", а={item.a}; b={item.b}; c={item.c}; d={item.d}");
+                    str = $"название: {item.Name}, количество углов: {item.Angle}, " + (item.Isos ? $", трапеция равнобокая, а={item.a}; b={item.b}; c=d={item.c}" : $", а={item.a}; b={item.b}; c={item.c}; d={item.d}");
                 }
                 listBox1.Items.Add(str);
             }
@@ -121,7 +112,7 @@ namespace labathree_pr
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click2(object sender, EventArgs e)
         {
             Graphics g = pictureBox1.CreateGraphics();
             g.Clear(Color.Turquoise);
@@ -131,17 +122,17 @@ namespace labathree_pr
 
             //// Объявляем объект "g" класса Graphics и предоставляем
             //// ему возможность рисования на pictureBox1:
-            
+
             //// Создаем объекты-кисти для закрашивания фигур
-            
+
             ////Выбираем перо myPen желтого цвета толщиной в 2 пикселя:
-           
+
             //// Закрашиваем фигуры
-             // (трапеция)
+            // (трапеция)
             //(прямоугольник)
 
             ////g.DrawPolygon(myWind, new Point[]{new Point(125, 408),  new Point(175, 408), new Point(200, 423), new Point(175, 438), new Point(125, 438), new Point(100, 423)});
-            
+
 
 
         }
