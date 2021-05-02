@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,25 +7,30 @@ using System.Drawing;
 
 namespace labathree_pr
 {
-    class Hexagon : FlatFigure//light
+    class Hexagon1 : FlatFigure//рассмотрены только правильные шестиугольники
     {
-        //double area;
-        //double sidesum;
-        bool regular=true;
+        bool regular = true;
         double a;
-        public bool Regular
+        double small_r;
+
+        public bool Regular//правильный
         {
             get { return regular; }
         }
         public double Small_r
         {
-            get { return a * Math.Sqrt(3) / 2; }
-            set {a = Math.Sqrt(3) / (2 * value); }
-        }
+            get { return small_r; }
+            set { small_r= value; Reculc(); }
+        }        
         public double Big_R
         {
             get { return a; }
             set { a = value; }
+        }
+
+        void Reculc()
+        {
+            a= Math.Sqrt(3) / (2 * small_r);
         }
         public override string Name
         {
@@ -37,20 +42,20 @@ namespace labathree_pr
             get { return 6; }
         }
 
-        public override double Area 
+        public override double Area
         {
             get { return DefArea(); }
-            set { a=Math.Sqrt(2 * value / (3 * Math.Sqrt(3))); }
+            set { a = Math.Sqrt(2 * value / (3 * Math.Sqrt(3))); }
         }
-        public override double SideSum 
+        public override double SideSum
         {
             get { return DefPerimeter(); }
             set { a = value / 6; }
         }
 
-        public Hexagon()
+        public Hexagon1()
         { }
-        public Hexagon(double a)
+        public Hexagon1(double a)
         {
             this.a = a;
         }
@@ -79,7 +84,7 @@ namespace labathree_pr
         }
         public override string Inf()
         {
-            return base.Inf() +$", правильный, a={a:0.00}";
+            return base.Inf() + $", правильный, a={a:0.00}";
         }
         public override void Draw(Graphics g)
         {
@@ -89,11 +94,4 @@ namespace labathree_pr
     }
 }
 
-//Алгоритм нахождения площади шестиугольника:
-//1. Создать класс вершина
-//2. Класс ребро содержит номера вершин
-//3. определить крайнюю левую вершину
-//4. найти направление обхода фигуры против часовой стрелки
-//5. обойти фигуру, записывая вершины в массив
-//6. применить координатный метод для определения площади
-//    ...
+
